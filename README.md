@@ -21,6 +21,13 @@ in the next console run some test command by running:
 bin/console test:cli:command
 ```
 
+### linters and code checking tools ###
+run ```composer csfix``` for php-cs-fixer
+
+run ```composer lint``` for phpstan
+
+run ```composer unit``` for unit testing suite
+
 ### Extending this application ###
 simply add another class in the 
 ```App\Infrastructure\Service\NotificationTransport``` namespace
