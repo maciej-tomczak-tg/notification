@@ -1,0 +1,9 @@
+App\Domain\Model\Notification:
+  table: notification.notification
+  type: entity
+  id: { notificationId: { type: notificationId, generator: { strategy: NONE } } }
+  fields:
+    message: { type: message }
+    customerInfo: { type: customerInfo }
+    deliveryInfo: { type: deliveryInfo, nullable: true }
+

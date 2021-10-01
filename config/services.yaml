@@ -1,0 +1,64 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+parameters:
+
+imports:
+    - { resource: services/ }
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        bind:
+          string $twilioSid: '%env(TWILIO_SID)%'
+          string $twilioToken: '%env(TWILIO_TOKEN)%'
+          string $twilioFrom: '%env(TWILIO_FROM)%'
+          string $awsAccessKey: '%env(AWS_ACCESS_KEY)%'
+          string $awsSecretKey: '%env(AWS_SECRET_KEY)%'
+          string $recipientEmail: '%env(AWS_RECIPIENT_EMAIL)%'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Domain/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    JMS\Serializer\SerializerInterface:
+        alias: jms_serializer
+
+    #load command handlers
+    App\Application\Command\:
+        resource: '%kernel.project_dir%/src/Application/Command/**/*Handler.php'
+        tags: [ { name: messenger.message_handler, bus: command.bus } ]
+
+    #load event handlers
+    App\Application\EventHandler\:
+        resource: '%kernel.project_dir%/src/Application/EventHandler/*EventHandler.php'
+        tags: [ { name: messenger.message_handler, bus: event.bus } ]
+
+    #load domain repositories
+    App\Infrastructure\Doctrine\Repository\:
+        resource: '%kernel.project_dir%/src/Infrastructure/Doctrine/Repository/*DoctrineRepository.php'
+    App\Domain\Repository\:
+        resource: '%kernel.project_dir%/src/Domain/Repository/*Repository.php'
+
+
+    #Transport
+    App\Application\Service\NotificationService:
+        arguments:
+            - !tagged_iterator { tag: notification.transport, default_priority_method: getPriority }
+
+    App\Infrastructure\Service\NotificationTransport\:
+        resource: '%kernel.project_dir%/src/Infrastructure/Service/NotificationTransport/*Transport.php'
+        tags: ['notification.transport']

@@ -1,0 +1,44 @@
+version: '3.7'
+services:
+  notification:
+    build:
+      context: .
+    ports:
+      - '8080:80'
+    volumes:
+      - .:/app
+      - composer-cache:/root/.composer/
+    working_dir: /app
+    environment:
+      - APP_ENV=dev
+      - APP_VERSION=dev
+      - APP_SECRET=ac83e24bf3444658fadf143de3a766df
+      - XDEBUG_CONFIG=client_host=172.17.0.1
+      - XDEBUG_MODE=debug
+      - DATABASE_URL=postgresql://postgres:postgres@notification_db:5432/notification_db
+      - MESSENGER_TRANSPORT_DSN=doctrine://default
+      - TWILIO_SID=AC23d668de10b87126c1741addb0a959ac
+      - TWILIO_TOKEN=8dcd0df271601df8f66c4b9fb642b3ce
+      - TWILIO_FROM=509421774
+      - AWS_ACCESS_KEY=AKIAUBFTGEPZEBSMFTHV
+      - AWS_SECRET_KEY=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
+      - AWS_RECIPIENT_EMAIL=maciej.jan.tomczak@gmail.com
+    depends_on:
+      - notification_db
+
+  notification_db:
+    image: postgres:13.3
+    ports:
+      - "4321:5432"
+    environment:
+      POSTGRES_DB: notification_db
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    volumes:
+      - notification_db_storage:/var/lib/postgresql/data
+
+volumes:
+  notification_db_storage:
+    driver: local
+  composer-cache:
+    driver: local
