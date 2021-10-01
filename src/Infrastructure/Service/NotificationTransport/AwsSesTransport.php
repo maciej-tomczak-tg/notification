@@ -19,15 +19,13 @@ class AwsSesTransport implements NotificationTransport
         private string $awsAccessKey,
         private string $awsSecretKey,
         private LoggerInterface $logger
-    )
-    {
+    ) {
         $this->emailService = new \SimpleEmailService($this->awsAccessKey, $this->awsSecretKey);
     }
 
     public function send(HasEmail $customerDTO, MessageDTO $messageDTO): void
     {
         try {
-
             $email = new \SimpleEmailServiceMessage();
             $email->addTo($customerDTO->getEmail());
             $email->setFrom($this->recipientEmail);
@@ -36,7 +34,7 @@ class AwsSesTransport implements NotificationTransport
 
             $this->emailService->sendEmail($email);
         } catch (\Throwable $throwable) {
-            $this->logger->notice('Delivery failed:'. $throwable->getMessage());
+            $this->logger->notice('Delivery failed:'.$throwable->getMessage());
 
             throw new TransportException($throwable->getMessage());
         }

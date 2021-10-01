@@ -17,12 +17,12 @@ services:
       - XDEBUG_MODE=debug
       - DATABASE_URL=postgresql://postgres:postgres@notification_db:5432/notification_db
       - MESSENGER_TRANSPORT_DSN=doctrine://default
-      - TWILIO_SID=
-      - TWILIO_TOKEN=
-      - TWILIO_FROM=
-      - AWS_ACCESS_KEY=
-      - AWS_SECRET_KEY=
-      - AWS_RECIPIENT_EMAIL=
+      - TWILIO_SID=AC23d668de10b87126c1741addb0a959ac
+      - TWILIO_TOKEN=8dcd0df271601df8f66c4b9fb642b3ce
+      - TWILIO_FROM=509421774
+      - AWS_ACCESS_KEY=AKIAUBFTGEPZEBSMFTHV
+      - AWS_SECRET_KEY=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
+      - AWS_RECIPIENT_EMAIL=maciej.jan.tomczak@gmail.com
     depends_on:
       - notification_db
 

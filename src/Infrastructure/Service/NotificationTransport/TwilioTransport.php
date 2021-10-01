@@ -19,8 +19,7 @@ class TwilioTransport implements NotificationTransport
         private string $twilioSid,
         private string $twilioToken,
         private LoggerInterface $logger
-    )
-    {
+    ) {
         $this->twilio = new Client($this->twilioSid, $this->twilioToken);
     }
 

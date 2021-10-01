@@ -28,7 +28,8 @@
     "require-dev": {
         "php": "*",
         "doctrine/doctrine-migrations-bundle": "^3.1",
-        "doctrine/migrations": "^3.2"
+        "doctrine/migrations": "^3.2",
+        "phpunit/phpunit": "^9.5"
     },
     "config": {
         "optimize-autoloader": true,
@@ -69,6 +70,9 @@
         "lint": [
             "php-cs-fixer fix --dry-run -vvv --allow-risky=yes",
             "php vendor/bin/phpstan analyse src --level=max"
+        ],
+        "unit": [
+            "phpunit --configuration tests/phpunit.xml.dist"
         ]
     },
     "conflict": {

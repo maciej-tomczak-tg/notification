@@ -5,3 +5,7 @@
 ###< friendsofphp/php-cs-fixer ###
 /vendor/
 /var/
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
