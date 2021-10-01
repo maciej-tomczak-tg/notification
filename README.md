@@ -23,7 +23,7 @@ bin/console test:cli:command
 
 ### Extending this application ###
 simply add another class in the 
-```App\Infrastructure\Service\NotificationTransport```
+```App\Infrastructure\Service\NotificationTransport``` namespace
 
 and make sure it's implementing 
 ```App\Application\Ports\NotificationTransport``` interface
