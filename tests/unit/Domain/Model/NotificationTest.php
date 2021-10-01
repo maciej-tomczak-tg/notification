@@ -42,7 +42,6 @@ class NotificationTest extends TestCase
 
         $notification->markAsDelivered($this->createMock(DeliveryInfo::class));
         $this->assertTrue($notification->isDelivered());
-
         $this->assertInstanceOf(Notification::class, $notification);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Doctrine;
+namespace App\Infrastructure\Middleware;
 
 use App\Domain\AggregateRoot;
 use Doctrine\ORM\EntityManagerInterface;

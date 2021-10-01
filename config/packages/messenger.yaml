@@ -4,7 +4,7 @@ framework:
     buses:
       command.bus:
         middleware:
-          - App\Infrastructure\Doctrine\DomainEventEmiterMiddleware
+          - App\Infrastructure\Middleware\DomainEventEmiterMiddleware
           - App\Infrastructure\Middleware\AuditLogMiddleware
       event.bus:
         middleware:
