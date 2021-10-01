@@ -16,7 +16,7 @@ class Notification implements AggregateRoot
 {
     use EventCollector;
 
-    private ?DeliveryInfo $deliveryInfo;
+    private ?DeliveryInfo $deliveryInfo = null;
 
     public function __construct(
         private NotificationId $notificationId,
@@ -39,5 +39,10 @@ class Notification implements AggregateRoot
     public function markAsDelivered(DeliveryInfo $deliveryInfo): void
     {
         $this->deliveryInfo = $deliveryInfo;
+    }
+
+    public function isDelivered(): bool
+    {
+        return $this->deliveryInfo !== null;
     }
 }
